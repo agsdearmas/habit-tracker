@@ -11,9 +11,9 @@ services:
       - "27017:27017" 
     environment:
     # Inicializar el administrador de MongoDB
-      MONGO_INITDB_ROOT_USERNAME: mongo_admin
-      MONGO_INITDB_ROOT_PASSWORD: password
-      MONGO_INITDB_DATABASE: mongo_db
+      MONGO_INITDB_ROOT_USERNAME: ${DB_DEFAULT_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_DEFAULT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${DB_DEFAULT_NAME}
     volumes:
       # Persistencia de datos: Guarda los datos fuera del contenedor para que no se pierdan
       - mongo-data:/data/db
@@ -32,11 +32,11 @@ services:
       - ../.env
     environment:
       # Inyectar variables esenciales al contenedor
-      DB_DEFAULT_HOST: mongo
-      DB_DEFAULT_USER: mongo_admin
-      DB_DEFAULT_PASSWORD: password
-      FLASK_ENV: default
-      APP_SECRET_KEY: defsupersecret
+      DB_DEFAULT_HOST: ${DB_DEFAULT_HOST}
+      DB_DEFAULT_USER: ${DB_DEFAULT_USER}
+      DB_DEFAULT_PASSWORD: ${DB_DEFAULT_PASSWORD}
+      FLASK_ENV: ${ENV_DEFAULT}
+      APP_SECRET_KEY: ${APP_SECRET_KEY}
     
 volumes:
   mongo-data: # Define el volumen persistente para la DB
