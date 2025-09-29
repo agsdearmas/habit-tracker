@@ -33,11 +33,31 @@ class ProductionConfig(Config):
 
 
 class AnalyticsConfig(Config):
-    DEBUG = False
+    DEBUG = True
     SESSION_COOKIE_SECURE = True
     REMEMBER_COOKIE_SECURE = True
 
 
 class TestingConfig(Config):
     TESTING = True
-    MONGO_URI = 'mongodb://localhost:27017/test_habitdb'
+
+
+# Mapeo de entornos a clases de configuracion
+ENV_CONFIGS = {
+    'default': DefaultConfig,
+    'develop': DevelopConfig,
+    'staging': StagingConfig,
+    'production': ProductionConfig,
+    'analytics': AnalyticsConfig,
+    'testing': TestingConfig,
+}
+
+# Funcion para obtener la configuracion correcta
+def get_env_config(env_name=None):
+    """
+    Selecciona la clase de configuracion basada en la variable de entorno 'FLASK_ENV' o 'ENV_DEFAULT'.
+    """
+    # Obtiener el entorno de la variable FLASK_ENV, luego ENV_DEFAULT, y por defecto 'default'.
+    env = env_name or os.getenv('FLASK_ENV') or os.getenv('ENV_DEFAULT') or 'default'
+    
+    return ENV_CONFIGS.get(env, DefaultConfig)

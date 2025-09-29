@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 from app.services import services
+from .settings import get_env_config
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -15,29 +16,9 @@ def init_services(app):
 def create_app(config_class=None):
     app = Flask(__name__)
 
-    # Seleccionar configuracion segon entorno
-    env = os.getenv('FLASK_ENV', 'default')
-
-    if not config_class:
-        if env == 'production':
-            from app.settings import ProductionConfig
-            config_class = ProductionConfig
-        elif env == 'develop':
-            from app.settings import DevelopConfig
-            config_class = DevelopConfig
-        elif env == 'staging':
-            from app.settings import StagingConfig
-            config_class = StagingConfig
-        elif env == 'analytics':
-            from app.settings import AnalyticsConfig
-            config_class = AnalyticsConfig
-        elif env == 'testing':
-            from app.settings import TestingConfig
-            config_class = TestingConfig
-        else:
-            from app.settings import DefaultConfig
-            config_class = DefaultConfig
-
+    # Cargar configuracion de entorno
+    env_name = os.getenv('FLASK_ENV', 'default')
+    config_class = get_env_config(env_name)
     app.config.from_object(config_class)
 
     # Inicializar servicios
