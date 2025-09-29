@@ -1,15 +1,19 @@
-Habit Tracker API
+# Habit Tracker API
+
 Una API de seguimiento de hábitos construida con Flask, Python y MongoDB, diseñada para operar en un entorno de desarrollo aislado utilizando Docker Compose.
 
 
-⚙️ Inicialización del Entorno (Desarrollo)
+## ⚙️ Inicialización del Entorno (Desarrollo)
+
 El entorno de la aplicación y la base de datos se inicia con un único script que automatiza el proceso de build y configuración.
 
-1. Clonar el Repositorio
+### 1. Clonar el Repositorio
+
 git clone https://github.com/agsdearmas/habit-tracker/
 cd habit-tracker
 
-2. Configurar Variables de Entorno
+### 2. Configurar Variables de Entorno
+
 Creá el archivo **`.env`** en la raíz del proyecto (`habit-tracker/`) con las credenciales y configuraciones de la DB.
 
 ```ini
@@ -27,7 +31,8 @@ DB_DEFAULT_USER=mongo_admin
 DB_DEFAULT_PASSWORD=password
 ```
 
-3. Levantar Servicios
+### 3. Levantar Servicios
+
 Ejecutá el script de inicio. Este comando construirá las imágenes, creará la red de Docker e iniciará la DB y la API.
 
 ./docker/run-all.sh
@@ -43,17 +48,20 @@ El proceso finalizará mostrando los logs en tiempo real de ambos contenedores.
 | Auth Login         | POST   | http://localhost:5000/auth/login        | Autenticación de usuario.                                |
 
 
-🛠️ Estructura y Arquitectura
+## 🛠️ Estructura y Arquitectura
+
 La aplicación sigue una arquitectura basada en un patrón de Servicios Modulares/Singleton en Python.
 
-Infraestructura (Docker Compose)
+## Infraestructura (Docker Compose)
+
 Servicio app: Contenedor de la aplicación Flask. Su Dockerfile instala dependencias y ejecuta run.py.
 
 Servicio mongo: Contenedor de la base de datos MongoDB. Los datos son persistentes gracias al volumen mongo-data definido en docker-compose.yml.
 
 Red Interna: Ambos contenedores se comunican a través de la red de Docker, utilizando el hostname definido en el .env como DB_DEFAULT_HOST.
 
-Flujo de Servicios (Patrones Python)
+## Flujo de Servicios (Patrones Python)
+
 La inicialización de las conexiones se gestiona mediante un patrón de Inyección de Dependencias y Singleton:
 
 BaseService: Define el contrato (init_app(app)).
@@ -65,7 +73,8 @@ MongoConnector (Singleton de Conexión):
     - Gestiona la conexión física y las reconexiones.
     - Construye la URI completa y segura (mongodb://usuario:pass@host/db?authSource=admin) utilizando las variables de app.config.
 
-🛑 Comandos de Mantenimiento
+## 🛑 Comandos de Mantenimiento
+
 Comandos desde el directorio /docker para gestionar entorno:
 
 | Comando                             | Descripción                                                                  |
