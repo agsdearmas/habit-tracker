@@ -25,6 +25,7 @@ DB_DEFAULT_PORT=27017
 DB_DEFAULT_NAME=mongo_db
 DB_DEFAULT_USER=mongo_admin
 DB_DEFAULT_PASSWORD=password
+```
 
 3. Levantar Servicios
 Ejecutá el script de inicio. Este comando construirá las imágenes, creará la red de Docker e iniciará la DB y la API.
@@ -67,7 +68,10 @@ MongoConnector (Singleton de Conexión):
 🛑 Comandos de Mantenimiento
 Comandos desde el directorio /docker para gestionar entorno:
 
-docker-compose down:	            Detiene y elimina los contenedores y la red.
-docker-compose ps:	                Muestra el estado actual de los servicios.
-docker-compose logs --follow app:	Muestra los logs en tiempo real, útil para depurar la aplicación.
-docker system prune -a:	            Limpieza profunda del caché de Docker (usar solo si hay problemas de build).
+| Comando                             | Descripción                                                                  |
+|-------------------------------------|------------------------------------------------------------------------------|
+| ./docker/run-all.sh                 | Construye e inicia la DB y la aplicación en modo desarrollo.                 |
+| docker-compose down                 | Detiene y elimina los contenedores y la red.                                 |
+| docker-compose ps                   | Muestra el estado actual de los servicios.                                   |
+| docker-compose logs --follow app    | Muestra los logs en tiempo real, útil para depurar la aplicación.            |
+| docker system prune -a              | Limpieza profunda del caché de Docker (usar solo si hay problemas de build). |
