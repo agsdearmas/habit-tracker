@@ -10,15 +10,17 @@ git clone https://github.com/agsdearmas/habit-tracker/
 cd habit-tracker
 
 2. Configurar Variables de Entorno
-Creá el archivo .env en la raíz del proyecto (habit-tracker/) con las credenciales y configuraciones de la DB.
+Creá el archivo **`.env`** en la raíz del proyecto (`habit-tracker/`) con las credenciales y configuraciones de la DB.
 
+```ini
 # .env
+
 # --- CONFIGURACION DE LA APLICACION ---
 ENV_DEFAULT=default
-APP_SECRET_KEY=defsupersecret
+APP_SECRET_KEY=TU_CLAVE_SECRETA_UNICA
 
 # --- CONFIGURACION DE MONGODB ---
-DB_DEFAULT_HOST=localhost
+DB_DEFAULT_HOST=mongo           # Nombre del servicio en docker-compose
 DB_DEFAULT_PORT=27017
 DB_DEFAULT_NAME=mongo_db
 DB_DEFAULT_USER=mongo_admin

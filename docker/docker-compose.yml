@@ -32,7 +32,7 @@ services:
       - ../.env
     environment:
       # Inyectar variables esenciales al contenedor
-      DB_DEFAULT_HOST: localhost
+      DB_DEFAULT_HOST: mongo
       DB_DEFAULT_USER: mongo_admin
       DB_DEFAULT_PASSWORD: password
       FLASK_ENV: default

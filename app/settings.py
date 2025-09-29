@@ -4,7 +4,7 @@ from app.services.mongo_manager.db_config import MongoConfig as dbConfig
 
 class Config:
     SECRET_KEY = os.getenv('APP_SECRET_KEY', 'defsupersecret')
-    DB_HOST = os.getenv('DB_DEFAULT_HOST', 'localhost')
+    DB_HOST = os.getenv('DB_DEFAULT_HOST', 'mongo')
     DB_PORT = os.getenv('DB_DEFAULT_PORT', '27017')
     DB_USER = os.getenv('DB_DEFAULT_USER', 'mongo_admin')
     DB_PASSWORD = os.getenv('DB_DEFAULT_PASSWORD', 'password')
