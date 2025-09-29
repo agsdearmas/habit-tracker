@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  # Servicio MongoDB
+  mongo:
+    image: mongo:latest
+    container_name: habit-tracker-mongo
+    restart: always
+    ports:
+      # <PUERTO_LOCAL>:<PUERTO_CONTENEDOR_MONGO>
+      - "27017:27017" 
+    environment:
+    # Inicializar el administrador de MongoDB
+      MONGO_INITDB_ROOT_USERNAME: mongo_admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: mongo_db
+    volumes:
+      # Persistencia de datos: Guarda los datos fuera del contenedor para que no se pierdan
+      - mongo-data:/data/db
+      
+  # Flask App
+  app:
+    build:
+      context: .. 
+      dockerfile: ./docker/Dockerfile
+    container_name: habit-tracker-app
+    ports:
+      - "5000:5000"   # <PUERTO_LOCAL>:<PUERTO_CONTENEDOR_FLASK>
+    depends_on:
+      - mongo   # Asegurar MongoDB inicie antes que la app
+    env_file:
+      - ../.env
+    environment:
+      # Inyectar variables esenciales al contenedor
+      DB_DEFAULT_HOST: localhost
+      DB_DEFAULT_USER: mongo_admin
+      DB_DEFAULT_PASSWORD: password
+      FLASK_ENV: default
+      APP_SECRET_KEY: defsupersecret
+    
+volumes:
+  mongo-data: # Define el volumen persistente para la DB
